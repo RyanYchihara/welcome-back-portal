@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AgendamentosRouteImport } from './routes/agendamentos'
 import { Route as BuscarRouteImport } from './routes/buscar'
+import { Route as EntrarRouteImport } from './routes/entrar'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +29,44 @@ const BuscarRoute = BuscarRouteImport.update({
   path: '/buscar',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EntrarRoute = EntrarRouteImport.update({
+  id: '/entrar',
+  path: '/entrar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agendamentos': typeof AgendamentosRoute
   '/buscar': typeof BuscarRoute
+  '/entrar': typeof EntrarRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agendamentos': typeof AgendamentosRoute
   '/buscar': typeof BuscarRoute
+  '/entrar': typeof EntrarRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/agendamentos': typeof AgendamentosRoute
   '/buscar': typeof BuscarRoute
+  '/entrar': typeof EntrarRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/agendamentos' | '/buscar'
+  fullPaths: '/' | '/agendamentos' | '/buscar' | '/entrar'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/agendamentos' | '/buscar'
-  id: '__root__' | '/' | '/agendamentos' | '/buscar'
+  to: '/' | '/agendamentos' | '/buscar' | '/entrar'
+  id: '__root__' | '/' | '/agendamentos' | '/buscar' | '/entrar'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AgendamentosRoute: typeof AgendamentosRoute
   BuscarRoute: typeof BuscarRoute
+  EntrarRoute: typeof EntrarRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +92,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BuscarRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/entrar': {
+      id: '/entrar'
+      path: '/entrar'
+      fullPath: '/entrar'
+      preLoaderRoute: typeof EntrarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgendamentosRoute: AgendamentosRoute,
   BuscarRoute: BuscarRoute,
+  EntrarRoute: EntrarRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
